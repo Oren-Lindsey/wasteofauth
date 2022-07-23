@@ -1,0 +1,1 @@
+<h1 class="text-4xl text-center m-1">Something went wrong... :(</h1>

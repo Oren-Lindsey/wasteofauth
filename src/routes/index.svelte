@@ -1,1 +1,2 @@
-<h1 class="text-2xl m-1 text-center">wasteofauth</h1>
+<h1 class="text-4xl m-1 text-center">wasteofauth</h1>
+<div class="grid place-items-center"><a sveltekit:prefetch class="mt-1 p-1 bg-[#ebd7ab] hover:bg-[#f0e4cb] active:valid:translate-y-1 transition delay-75 ease-in-out border-4 border-black" href="/docs">Docs</a></div>

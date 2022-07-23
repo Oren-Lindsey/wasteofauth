@@ -6,7 +6,6 @@
     let stage = 1
     let code = ""
     let msg = ""
-    import { goto } from '$app/navigation'
     function genCode() {
         code = Math.floor(Math.random() * 9000000) + 1000000
         stage = 2
@@ -14,24 +13,23 @@
     async function check() {
         stage = 3
         try {
-            const res = await fetch(`https://api.wasteof.money/users/${username}/wall?page=1`)
-            const json = await res.json()
-            const comments = json.comments
-            if (comments[0].poster.name == username && comments[0].content == `<p>${code}</p>`) {
-                msg = "logged in successfully!"
-                stage = 4
-                setTimeout(() => {
-                    window.location.href = `${decodeURIComponent(redirect)}?success=true&username=${username}`
-                }, 1000)
-            } else {
-                msg = "failed to login :("
-                stage = 4
-                setTimeout(() => {
-                    window.location.href = `${decodeURIComponent(redirect)}?success=false`
-                }, 1000)
-            }
+            const add = await fetch(`/auth/add/${username}`, {
+                method: "POST",
+                body: JSON.stringify({
+                    code: code
+                }),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            const json = await add.json()
+            msg = "logged in successfully!"
+            stage = 4
+            setTimeout(() => {
+                window.location.href = `${decodeURIComponent(redirect)}?success=true&username=${json.user.name}&id=${json.user._id}`
+            }, 1000)
         } catch (e) {
-            msg = "failed to login :("
+            msg = `failed to login :(`
             stage = 4
             setTimeout(() => {
                 window.location.href = `${decodeURIComponent(redirect)}?success=false`
